@@ -1,0 +1,10 @@
+argparse==1.2.1
+distribute==0.6.24
+numpy==1.8.1
+pandas==0.14.1
+python-dateutil==2.2
+pytz==2014.4
+rpy2==2.4.2
+six==1.7.3
+wsgiref==0.1.2
+xlrd==0.9.3

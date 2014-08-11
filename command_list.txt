@@ -1,0 +1,18 @@
+----------------------------------------------------------------------------
+python manage.py dumpdata --natural --format=json pricing > pricing/fixtures/initial_data.json
+
+mysqldump -h localhost -u shu -plee2000 ui_datatable_form | mysql -h localhost -u shu -plee2000 ui_datatable_form_bk
+
+mv pricing/fixtures/initial_data.json pricing/fixtures/bk_initial_data.json 
+
+rm pricing/fixtures/initial_data.json 
+
+python manage.py test pricing.tests.PricingTestCase
+
+python manage.py dumpdata --indent=2 auth > initial_data.json
+
+django-admin.py makemessages -a
+
+django-admin.py compilemessages
+
+----------------------------------------------------------------------------

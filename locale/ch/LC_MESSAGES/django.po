@@ -1,0 +1,823 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-29 10:42+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: auth/models.py:13 contact/bk_templates/user_bootstrap3.html:104
+#: contact/bk_templates/user_grid_bitbucket.html:123
+#: contact/bk_templates/users_jqueryui.html:66 group/models.py:10
+#: policy/models/pmepolicybase.py:67 policy/models/policy.py:30
+#: templates/policy_jqueryui.html:113 templates/user_bootstrap3.html:104
+#: templates/user_grid_bitbucket.html:123 templates/users_jqueryui.html:66
+#: templates/ag/group_bootstrap.html:282 templates/ag/user_bootstrap.html:245
+msgid "Phone"
+msgstr "电话"
+
+#: auth/models.py:14 group/models.py:11 policy/models/pmepolicybase.py:60
+#: policy/models/policy.py:23 templates/ag/group_bootstrap.html:283
+#: templates/mbg/policy_bootstrap.html:259
+msgid "Address"
+msgstr "地址"
+
+#: auth/views.py:39
+msgid "You're successfully logged in!"
+msgstr "登录成功！"
+
+#: auth/views.py:42
+msgid "Your account is not active, please contact the site admin."
+msgstr "您的账户处于非激活状态。"
+
+#: auth/views.py:46
+msgid "Warning! Your username and/or password were incorrect."
+msgstr "错误的用户名或密码。"
+
+#: contact/bk_templates/base_jqueryui.html:154
+#: contact/bk_templates/bk_base_bootstrap.html:111
+#: templates/base_bootstrap.html:121 templates/base_jqueryui.html:154
+#: templates/mbg/mbg_base_bootstrap.html:113
+msgid "Home"
+msgstr "首页"
+
+#: contact/bk_templates/base_jqueryui.html:156
+#: contact/bk_templates/bk_base_bootstrap.html:113
+#: templates/base_jqueryui.html:156
+msgid "Customers"
+msgstr "用户列表"
+
+#: contact/bk_templates/base_jqueryui.html:162
+#: contact/bk_templates/bk_base_bootstrap.html:112
+#: templates/base_jqueryui.html:162 templates/base_policy_bootstrap.html:198
+#: templates/policy_bootstrap.html:197
+#: templates/mbg/mbg_base_bootstrap.html:114
+#: templates/mbg/policy_bootstrap.html:212
+msgid "Policy"
+msgstr "保单"
+
+#: contact/bk_templates/base_jqueryui.html:163
+#: contact/bk_templates/bk_base_bootstrap.html:114
+#: templates/base_jqueryui.html:163
+msgid "Claims"
+msgstr "索赔"
+
+#: contact/bk_templates/base_jqueryui.html:164
+#: contact/bk_templates/bk_base_bootstrap.html:115
+#: templates/base_jqueryui.html:164
+msgid "Invoices"
+msgstr "发票"
+
+#: contact/bk_templates/base_jqueryui.html:165
+#: contact/bk_templates/bk_base_bootstrap.html:116
+#: templates/base_jqueryui.html:165
+msgid "Reports"
+msgstr "报告"
+
+#: contact/bk_templates/base_jqueryui.html:166
+#: contact/bk_templates/bk_base_bootstrap.html:117
+#: templates/base_jqueryui.html:166
+msgid "Admin"
+msgstr "管理"
+
+#: contact/bk_templates/base_jqueryui.html:171
+#: templates/base_jqueryui.html:171
+msgid "Go"
+msgstr "选择"
+
+#: contact/bk_templates/base_jqueryui.html:189
+#: contact/bk_templates/bk_base_bootstrap.html:164
+#: templates/base_bootstrap.html:210 templates/base_jqueryui.html:189
+#: templates/mbg/mbg_base_bootstrap.html:202
+msgid "Log Out"
+msgstr "退出"
+
+#: contact/bk_templates/base_jqueryui.html:192
+#: templates/base_jqueryui.html:192
+msgid "Log in"
+msgstr "登录"
+
+#: contact/bk_templates/base_jqueryui.html:206
+#: templates/base_jqueryui.html:206
+msgid "Welcome to Thistle RMS demo system"
+msgstr "欢迎访问Thistle RMS 测试网站"
+
+#: contact/bk_templates/contact_wizard_form.html:32
+#: contact/bk_templates/contact_wizard_form_crispy.html:32
+#: templates/contact_wizard_form.html:32
+msgid "first step"
+msgstr "第一步"
+
+#: contact/bk_templates/contact_wizard_form.html:33
+#: contact/bk_templates/contact_wizard_form_crispy.html:33
+#: templates/contact_wizard_form.html:33
+msgid "prev step"
+msgstr "下一步"
+
+#: contact/bk_templates/contact_wizard_form_crispy.html:13
+#: templates/contact_wizard_form_crispy.html:13
+msgid "Create new customer"
+msgstr "创建新用户"
+
+#: contact/bk_templates/user_bootstrap3.html:21
+#: contact/bk_templates/user_grid_bitbucket.html:34
+#: contact/bk_templates/users_jqueryui.html:20
+#: templates/base_policy_bootstrap.html:37 templates/policy_bootstrap.html:36
+#: templates/policy_jqueryui.html:34 templates/user_bootstrap3.html:21
+#: templates/user_grid_bitbucket.html:34 templates/users_jqueryui.html:20
+#: templates/ag/group_bootstrap.html:56 templates/ag/policy_bootstrap.html:50
+#: templates/ag/pricing_bootstrap.html:44 templates/ag/user_bootstrap.html:44
+#: templates/mbg/policy_bootstrap.html:44
+msgid "Display _MENU_ records per page"
+msgstr "每页显示 _MENU_ 结果"
+
+#: contact/bk_templates/user_bootstrap3.html:71
+#: contact/bk_templates/user_grid_bitbucket.html:93
+#: templates/user_bootstrap3.html:71 templates/user_grid_bitbucket.html:93
+msgid "Customers List"
+msgstr "用户列表"
+
+#: contact/bk_templates/user_bootstrap3.html:91
+#: contact/bk_templates/user_bootstrap3.html:93
+#: contact/bk_templates/user_grid_bitbucket.html:46
+#: contact/bk_templates/user_grid_bitbucket.html:47
+#: contact/bk_templates/users_jqueryui.html:38
+#: contact/bk_templates/users_jqueryui.html:39
+#: templates/base_policy_bootstrap.html:139
+#: templates/base_policy_bootstrap.html:140
+#: templates/base_policy_bootstrap.html:164
+#: templates/base_policy_bootstrap.html:165
+#: templates/policy_bootstrap.html:138 templates/policy_bootstrap.html:139
+#: templates/policy_bootstrap.html:163 templates/policy_bootstrap.html:164
+#: templates/policy_jqueryui.html:46 templates/policy_jqueryui.html.py:47
+#: templates/user_bootstrap3.html:91 templates/user_bootstrap3.html.py:93
+#: templates/user_grid_bitbucket.html:46 templates/user_grid_bitbucket.html:47
+#: templates/users_jqueryui.html:38 templates/users_jqueryui.html.py:39
+#: templates/ag/group_bootstrap.html:256 templates/ag/group_bootstrap.html:258
+#: templates/ag/policy_bootstrap.html:248
+#: templates/ag/policy_bootstrap.html:250
+#: templates/ag/pricing_bootstrap.html:249
+#: templates/ag/pricing_bootstrap.html:251
+#: templates/ag/user_bootstrap.html:221 templates/ag/user_bootstrap.html:223
+#: templates/mbg/policy_bootstrap.html:237
+#: templates/mbg/policy_bootstrap.html:239
+msgid "Search"
+msgstr "搜索"
+
+#: contact/bk_templates/user_bootstrap3.html:102
+#: contact/bk_templates/user_grid_bitbucket.html:121
+#: contact/bk_templates/users_jqueryui.html:64
+#: templates/user_bootstrap3.html:102 templates/user_grid_bitbucket.html:121
+#: templates/users_jqueryui.html:64 templates/ag/login_bootstrap.html:68
+#: templates/ag/user_bootstrap.html:241 templates/mbg/login_bootstrap.html:61
+msgid "Username"
+msgstr "用户名"
+
+#: contact/bk_templates/user_bootstrap3.html:103
+#: contact/bk_templates/user_grid_bitbucket.html:122
+#: contact/bk_templates/users_jqueryui.html:65
+#: templates/user_bootstrap3.html:103 templates/user_grid_bitbucket.html:122
+#: templates/users_jqueryui.html:65 templates/ag/user_bootstrap.html:244
+msgid "Email"
+msgstr "电邮"
+
+#: contact/bk_templates/user_bootstrap3.html:105
+#: contact/bk_templates/user_grid_bitbucket.html:124
+#: contact/bk_templates/users_jqueryui.html:67
+#: templates/policy_jqueryui.html:114 templates/user_bootstrap3.html:105
+#: templates/user_grid_bitbucket.html:124 templates/users_jqueryui.html:67
+msgid "Location"
+msgstr "地点"
+
+#: contact/bk_templates/user_grid_bitbucket.html:95
+#: templates/base_policy_bootstrap.html:115
+#: templates/policy_bootstrap.html:114 templates/policy_jqueryui.html:95
+#: templates/user_grid_bitbucket.html:95
+msgid "This page is displaying in language code"
+msgstr "页面显示语言代码"
+
+#: contact/bk_templates/users_jqueryui.html:21
+#: templates/users_jqueryui.html:21 templates/ag/group_bootstrap.html:57
+#: templates/ag/policy_bootstrap.html:51
+#: templates/ag/pricing_bootstrap.html:45 templates/ag/user_bootstrap.html:45
+#: templates/mbg/policy_bootstrap.html:45
+msgid "Nothing found - sorry"
+msgstr "没有匹配结果"
+
+#: contact/bk_templates/users_jqueryui.html:22
+#: templates/users_jqueryui.html:22 templates/ag/group_bootstrap.html:58
+#: templates/ag/policy_bootstrap.html:52
+#: templates/ag/pricing_bootstrap.html:46 templates/ag/user_bootstrap.html:46
+#: templates/mbg/policy_bootstrap.html:46
+msgid "Showing _START_ to _END_ of _TOTAL_ records"
+msgstr "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项"
+
+#: contact/bk_templates/users_jqueryui.html:23
+#: templates/users_jqueryui.html:23 templates/ag/group_bootstrap.html:59
+#: templates/ag/policy_bootstrap.html:53
+#: templates/ag/pricing_bootstrap.html:47 templates/ag/user_bootstrap.html:47
+#: templates/mbg/policy_bootstrap.html:47
+msgid "Showing 0 to 0 of 0 records"
+msgstr "显示第 0 至 0 项结果，共 0 项"
+
+#: contact/bk_templates/users_jqueryui.html:24
+#: templates/users_jqueryui.html:24
+msgid "(filtered from _MAX_ total records)"
+msgstr "显示_MAX_过滤后结果"
+
+#: contact/bk_templates/users_jqueryui.html:25
+#: templates/users_jqueryui.html:25
+msgid "Please wait - loading..."
+msgstr "处理中..."
+
+#: contact/bk_templates/users_jqueryui.html:27
+#: templates/users_jqueryui.html:27
+msgid "First page"
+msgstr "首页"
+
+#: contact/bk_templates/users_jqueryui.html:28
+#: templates/users_jqueryui.html:28
+msgid "Last page"
+msgstr "末页"
+
+#: contact/bk_templates/users_jqueryui.html:29
+#: templates/users_jqueryui.html:29
+msgid "Next page"
+msgstr "下页"
+
+#: contact/bk_templates/users_jqueryui.html:30
+#: templates/users_jqueryui.html:30
+msgid "Previous page"
+msgstr "上页"
+
+#: formwizard/settings.py:57
+msgid "Chinese"
+msgstr "中文"
+
+#: group/views.py:32
+msgid ""
+"Warning: Branch cannot be created on branch, please select a group to create "
+"branch."
+msgstr ""
+
+#: policy/models/pmepolicy.py:30 policy/models/pmepolicyrevision.py:44
+#: policy/models/pmeusedpolicy.py:17
+msgid "Human readable string for vehicle make"
+msgstr ""
+
+#: policy/models/pmepolicy.py:36 policy/models/pmepolicyrevision.py:50
+#: policy/models/pmeusedpolicy.py:23
+msgid "Human readable string for vehicle model"
+msgstr ""
+
+#: policy/models/pmepolicy.py:41
+msgid "Comma separated list of text used as searchable content"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:26
+msgid "Unique identifier for this instance"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:30 policy/models/policy.py:34
+msgid "Warranty or quotation number"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:33 policy/models/policy.py:37
+msgid "Warranty number"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:39
+msgid "ID of criteria price"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:40
+msgid "Criteria Price"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:46
+msgid "UID of warranty type"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:47
+msgid "Warranty type"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:51 policy/models/policy.py:14
+msgid "Name of the warranty holder"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:53
+msgid "Warranty holder name"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:57 policy/models/policy.py:20
+msgid "Address of the warranty holder"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:64 policy/models/policy.py:27
+msgid "Mobile phone number for warranty holder"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:71 policy/models/pmepolicybase.py:74
+#, fuzzy
+msgid "Client Reference"
+msgstr "参考号"
+
+#: policy/models/pmepolicybase.py:78 policy/models/policy.py:41
+msgid "Vehicle Identification Number (VIN) for risk item"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:81 policy/models/policy.py:44
+msgid "VIN number"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:85 policy/models/policy.py:48
+msgid "Total mileage for the vehicle"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:88 policy/models/policy.py:51
+msgid "Vehicle mileage"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:92 policy/models/pmepolicybase.py:93
+#: pricing/models.py:52 pricing/models.py:53
+msgid "for used vehicle policy"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:97 policy/models/policy.py:55
+msgid "Vehicle purchase price"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:99 policy/models/policy.py:57
+msgid "Purchase price"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:104
+msgid "Policy sold price"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:106
+#, fuzzy
+msgid "Policy price"
+msgstr "保单列表"
+
+#: policy/models/pmepolicybase.py:112 policy/models/policy.py:62
+#, fuzzy
+msgid "Vehicle registration date"
+msgstr "登记日期"
+
+#: policy/models/pmepolicybase.py:114 policy/models/policy.py:64
+#, fuzzy
+msgid "Registration date"
+msgstr "登记日期"
+
+#: policy/models/pmepolicybase.py:119 policy/models/policy.py:69
+msgid "The date the cover starts"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:121 policy/models/policy.py:71
+#, fuzzy
+msgid "Cover start date"
+msgstr "开始时间"
+
+#: policy/models/pmepolicybase.py:126
+msgid "Warranty create time"
+msgstr ""
+
+#: policy/models/pmepolicybase.py:128
+#, fuzzy
+msgid "Created date"
+msgstr "创建时间"
+
+#: policy/models/pmepolicyrevision.py:24
+msgid "Incremental number used for sorting revisions"
+msgstr ""
+
+#: policy/models/pmepolicyrevision.py:25
+msgid "Revision number"
+msgstr ""
+
+#: policy/models/policy.py:16
+msgid "Policy warranty name"
+msgstr ""
+
+#: policy/models/policy.py:76
+msgid "The date the cover ends"
+msgstr ""
+
+#: policy/models/policy.py:78
+msgid "Cover end date"
+msgstr ""
+
+#: policytypes/models/policytype.py:12
+#, fuzzy
+msgid "Policy type"
+msgstr "保单列表"
+
+#: policytypes/models/policytype.py:17
+msgid "Unique identifier for this policy type"
+msgstr ""
+
+#: policytypes/models/policytype.py:22
+msgid "Datetime created"
+msgstr ""
+
+#: policytypes/models/policytype.py:23
+#: templates/base_policy_bootstrap.html:201
+#: templates/policy_bootstrap.html:200
+msgid "Created at"
+msgstr "创建时间"
+
+#: policytypes/models/policytype.py:26
+msgid "Must obey Python naming rules for identifiers"
+msgstr ""
+
+#: policytypes/models/policytype.py:28
+#, fuzzy
+msgid "Policy type id"
+msgstr "保单列表"
+
+#: policytypes/models/policytype.py:32
+msgid "Brief human readable name of policy type, e.g. \"PME New\""
+msgstr ""
+
+#: policytypes/models/policytype.py:34
+msgid "Policy type label"
+msgstr ""
+
+#: policytypes/models/policytype.py:37
+msgid "Full name of policy type, e.g. \"Policy type for new Peugeot vehicles\""
+msgstr ""
+
+#: policytypes/models/policytype.py:39
+msgid "Policy type name"
+msgstr ""
+
+#: pricing/models.py:50 pricing/models.py:51
+msgid "for new vehicle policy only"
+msgstr ""
+
+#: sequencenumber/models/sequencenumber.py:12
+msgid "Sequence number for type"
+msgstr ""
+
+#: sequencenumber/models/sequencenumber.py:13
+msgid "Sequence numbering for types"
+msgstr ""
+
+#: templates/base_bootstrap.html:122
+msgid "Warranty"
+msgstr "保单"
+
+#: templates/base_bootstrap.html:124 templates/base_bootstrap.html.py:138
+#: templates/base_bootstrap.html:145 templates/mbg/mbg_base_bootstrap.html:116
+msgid "Find"
+msgstr "查找"
+
+#: templates/base_bootstrap.html:131 templates/base_bootstrap.html.py:139
+#: templates/base_bootstrap.html:146 templates/mbg/mbg_base_bootstrap.html:123
+msgid "New"
+msgstr "新建"
+
+#: templates/base_bootstrap.html:136
+msgid "User"
+msgstr "用户"
+
+#: templates/base_bootstrap.html:143
+msgid "Groups-Branches"
+msgstr "集团-分公司"
+
+#: templates/base_bootstrap.html:149 templates/ag/pricing_bootstrap.html:224
+msgid "Pricing Setup"
+msgstr "定价"
+
+#: templates/base_bootstrap.html:205 templates/mbg/mbg_base_bootstrap.html:197
+msgid "My Profile"
+msgstr "我的设置"
+
+#: templates/base_policy_bootstrap.html:113
+#: templates/policy_bootstrap.html:112 templates/policy_jqueryui.html:93
+msgid "Policy List"
+msgstr "保单列表"
+
+#: templates/base_policy_bootstrap.html:199
+#: templates/policy_bootstrap.html:198 templates/ag/policy_bootstrap.html:270
+#: templates/mbg/policy_bootstrap.html:258
+msgid "Holder"
+msgstr "持保人"
+
+#: templates/base_policy_bootstrap.html:200
+#: templates/policy_bootstrap.html:199 templates/ag/pricing_bootstrap.html:281
+#: templates/mbg/policy_bootstrap.html:266
+msgid "Price"
+msgstr "价格"
+
+#: templates/contact_wizard_form_crispy.html:32
+msgid "First step"
+msgstr "第一步"
+
+#: templates/contact_wizard_form_crispy.html:33
+msgid "Prev step"
+msgstr "上一步"
+
+#: templates/policy_jqueryui.html:111
+msgid "Policy ID"
+msgstr "保单号"
+
+#: templates/policy_jqueryui.html:112
+msgid "holder"
+msgstr "持保人"
+
+#: templates/ag/create_group_bootstrap.html:22
+#: templates/ag/create_policy_bootstrap.html:29
+#: templates/ag/create_user_bootstrap.html:29
+#: templates/ag/edit_criteria_price_bootstrap.html:22
+#: templates/mbg/create_policy_bootstrap.html:29
+msgid "Prev Step"
+msgstr "下一步"
+
+#: templates/ag/group_bootstrap.html:60 templates/ag/policy_bootstrap.html:54
+#: templates/ag/pricing_bootstrap.html:48 templates/ag/user_bootstrap.html:48
+#: templates/mbg/policy_bootstrap.html:48
+msgid "filtered from _MAX_ total records"
+msgstr "显示_MAX_过滤后结果"
+
+#: templates/ag/group_bootstrap.html:232
+msgid "Group-Branch List"
+msgstr "公司列表"
+
+#: templates/ag/group_bootstrap.html:246
+#: templates/ag/policy_bootstrap.html:238
+#: templates/ag/pricing_bootstrap.html:239
+#: templates/ag/user_bootstrap.html:211
+#: templates/mbg/policy_bootstrap.html:227
+msgid "Basic search panel"
+msgstr "基本搜索"
+
+#: templates/ag/group_bootstrap.html:260
+#: templates/ag/policy_bootstrap.html:252
+#: templates/ag/pricing_bootstrap.html:253
+#: templates/ag/user_bootstrap.html:225
+#: templates/mbg/policy_bootstrap.html:241
+msgid "Edit"
+msgstr "编辑"
+
+#: templates/ag/group_bootstrap.html:262
+msgid "Create Group"
+msgstr "创建集团"
+
+#: templates/ag/group_bootstrap.html:264
+msgid "Create Branch"
+msgstr "创建分支公司"
+
+#: templates/ag/group_bootstrap.html:277
+#: templates/ag/pricing_bootstrap.html:270
+#: templates/mbg/policy_bootstrap.html:257
+msgid "ID"
+msgstr "序号"
+
+#: templates/ag/group_bootstrap.html:278
+msgid "Type"
+msgstr "种类"
+
+#: templates/ag/group_bootstrap.html:279
+msgid "Name"
+msgstr "名字"
+
+#: templates/ag/group_bootstrap.html:280
+msgid "Parent"
+msgstr "上级单位"
+
+#: templates/ag/group_bootstrap.html:281
+msgid "Business Category"
+msgstr "行业"
+
+#: templates/ag/home.html:68
+msgid "New Warranty"
+msgstr "创建保单"
+
+#: templates/ag/home.html:70
+msgid "Find Warranty"
+msgstr "查找保单"
+
+#: templates/ag/login_bootstrap.html:67
+msgid "Please sign in"
+msgstr "请登录"
+
+#: templates/ag/login_bootstrap.html:68 templates/ag/login_bootstrap.html:69
+#: templates/mbg/login_bootstrap.html:61 templates/mbg/login_bootstrap.html:62
+msgid "Please fill in this field"
+msgstr "请填入信息"
+
+#: templates/ag/login_bootstrap.html:69 templates/mbg/login_bootstrap.html:62
+msgid "Password"
+msgstr "密码"
+
+#: templates/ag/login_bootstrap.html:74 templates/mbg/login_bootstrap.html:67
+msgid "Sign in"
+msgstr "登录"
+
+#: templates/ag/policy_bootstrap.html:223
+msgid "Warranty Search"
+msgstr "查找保单"
+
+#: templates/ag/policy_bootstrap.html:255
+#: templates/mbg/policy_bootstrap.html:244
+msgid "Create New Policy"
+msgstr "创建新保单"
+
+#: templates/ag/policy_bootstrap.html:268
+msgid "Policy Number"
+msgstr "保单号"
+
+#: templates/ag/policy_bootstrap.html:269
+#: templates/mbg/policy_bootstrap.html:261
+msgid "Reference"
+msgstr "参考号"
+
+#: templates/ag/policy_bootstrap.html:273
+#: templates/ag/pricing_bootstrap.html:272
+#: templates/mbg/policy_bootstrap.html:262
+msgid "Make"
+msgstr "品牌"
+
+#: templates/ag/policy_bootstrap.html:274
+#: templates/ag/pricing_bootstrap.html:273
+#: templates/mbg/policy_bootstrap.html:263
+msgid "Model"
+msgstr "型号"
+
+#: templates/ag/policy_bootstrap.html:275
+#: templates/mbg/policy_bootstrap.html:264
+msgid "Vin"
+msgstr "发动机号"
+
+#: templates/ag/policy_bootstrap.html:276
+#: templates/ag/pricing_bootstrap.html:276
+#: templates/mbg/policy_bootstrap.html:265
+msgid "Mileage"
+msgstr "里程数"
+
+#: templates/ag/policy_bootstrap.html:277
+msgid "Cover Mileage"
+msgstr "投保里程数"
+
+#: templates/ag/policy_bootstrap.html:278
+#, fuzzy
+msgid "Cover Duration"
+msgstr "保期"
+
+#: templates/ag/policy_bootstrap.html:279
+#: templates/ag/pricing_bootstrap.html:274
+msgid "Engine Size"
+msgstr "发动机排量"
+
+#: templates/ag/policy_bootstrap.html:280
+#: templates/ag/pricing_bootstrap.html:275
+msgid "Origin"
+msgstr "产地"
+
+#: templates/ag/policy_bootstrap.html:282
+#: templates/mbg/policy_bootstrap.html:267
+msgid "Registration Date"
+msgstr "登记日期"
+
+#: templates/ag/policy_bootstrap.html:283
+#: templates/mbg/policy_bootstrap.html:268
+msgid "Start Date"
+msgstr "开始时间"
+
+#: templates/ag/policy_bootstrap.html:284
+#: templates/mbg/policy_bootstrap.html:269
+msgid "Created"
+msgstr "创建时间"
+
+#: templates/ag/policy_bootstrap.html:285
+msgid "gap"
+msgstr ""
+
+#: templates/ag/pricing_bootstrap.html:255
+msgid "Create Similar"
+msgstr "创建类似"
+
+#: templates/ag/pricing_bootstrap.html:257
+msgid "Create New"
+msgstr "创建"
+
+#: templates/ag/pricing_bootstrap.html:271
+msgid "Policy Type"
+msgstr "保单类型"
+
+#: templates/ag/pricing_bootstrap.html:277
+msgid "Duration"
+msgstr "期限"
+
+#: templates/ag/pricing_bootstrap.html:278
+msgid "Created_at"
+msgstr "创建时间"
+
+#: templates/ag/pricing_bootstrap.html:279
+msgid "Active"
+msgstr "有效"
+
+#: templates/ag/pricing_bootstrap.html:280
+msgid "Group/Branch"
+msgstr "集团/分支"
+
+#: templates/ag/user_bootstrap.html:197
+msgid "User List"
+msgstr "用户列表"
+
+#: templates/ag/user_bootstrap.html:227
+msgid "Create New User"
+msgstr "创建新用户"
+
+#: templates/ag/user_bootstrap.html:240
+msgid "User ID"
+msgstr "客户序号"
+
+#: templates/ag/user_bootstrap.html:242
+msgid "First Name"
+msgstr "名"
+
+#: templates/ag/user_bootstrap.html:243
+msgid "Last Name"
+msgstr "姓"
+
+#: templates/ag/user_bootstrap.html:246
+msgid "Last Login"
+msgstr "最近登录"
+
+#: templates/mbg/create_policy_bootstrap.html:43 templates/mbg/home.html:74
+msgid "New Policy"
+msgstr "创建新保单"
+
+#: templates/mbg/home.html:76
+msgid "Find Policy"
+msgstr "查询保单"
+
+#: templates/mbg/login_bootstrap.html:60
+msgid "Login to enter policy"
+msgstr "登录创建保单"
+
+#: templates/mbg/policy_bootstrap.html:260
+msgid "Mobile"
+msgstr "手机号码"
+
+#~ msgid "New/Used"
+#~ msgstr "新/旧"
+
+#~ msgid "View"
+#~ msgstr "浏览"
+
+#~ msgid "Create new"
+#~ msgstr "创建"
+
+#~ msgid "View user"
+#~ msgstr "浏览用户"
+
+#~ msgid "Create new user"
+#~ msgstr "创建新用户"
+
+#~ msgid "Ref"
+#~ msgstr "编号"
+
+#~ msgid "This field is required."
+#~ msgstr "必填"
+
+#~ msgid "i18n text"
+#~ msgstr "多语言版本"
+
+#~ msgid "i18n legend"
+#~ msgstr "多语言"
+
+#~ msgid "Enter a valid value."
+#~ msgstr "输入"
+
+#~ msgid "%s ago"
+#~ msgstr "%s 之前"
+
+#~ msgid "Ascending"
+#~ msgstr "升序"
+
+#~ msgid "Descending"
+#~ msgstr "降序"
+
+#~ msgid "Unsort"
+#~ msgstr "不排序"
+
+#~ msgid "View this page in:"
+#~ msgstr "使用语言"
+
+#~ msgid "English"
+#~ msgstr "英语"

@@ -1,0 +1,71 @@
+{% extends "base_bootstrap.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block extra_head %}
+
+<title>RMS Login</title>
+    <style>
+        .flash_message {
+            margin: 10 auto;
+            max-width: 430px;
+            height: 100px;
+            padding: 15px;
+        }
+        .welcome_message {
+            margin: 0 auto;
+            max-width: 330px;
+            padding: 15px;
+        }
+        .home_links{
+            margin: 0 auto;
+            /*margin-top:100px;*/
+            max-width: 330px;
+            padding: 15px;
+            float: center;
+        }
+        #policy_button{
+            margin-left: 25%;
+            width: 50%;
+        }
+        #middle_logo{
+            margin-left: 25%;
+            width: 50%;
+        }
+    </style>
+
+{% endblock %}
+{% block jumbotron %}{% endblock jumbotron %}
+{% block content %}
+
+{% if messages %}
+
+<div class="flash_message">
+{% for message in messages %}
+    <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+{#    <div class="alert alert-warning">#}
+
+        <p>{{ message }}</p>
+    </div>
+{% endfor %}
+
+
+</div>
+{% endif %}
+
+<div class="Welcome_message">
+
+{% block middle_logo %}<img id="middle_logo" src="/static/images/logo/MB&G-logo-300px.png" />{% endblock middle_logo%}
+
+</div>
+<div class="home_links">
+    <p>
+
+    <a href="/policy/"><button type="button" class="btn btn-primary btn-lg" id="policy_button">Policy</button></a>
+    </p>
+
+      </form>
+
+</div>
+
+{% endblock %}

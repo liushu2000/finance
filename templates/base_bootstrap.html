@@ -1,0 +1,266 @@
+{% load i18n %}
+{% load static %}
+{% load selectable_tags %}
+{% include_jquery_libs %}
+
+
+{% get_available_languages as languages %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock title %}</title>
+    {% block static %}
+{#        <script type="text/javascript" src="/jsi18n"></script>#}
+{#        <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>#}
+        {# jQuery #}
+        <script type="text/javascript" src='/static/jquery/jquery.min.js'></script>
+
+        {# Bootstrap #}
+
+        <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+        <!-- Optional theme -->
+
+{#        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">#}
+        <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap-theme.min.css">
+
+        <link rel="stylesheet" href="/static/flags/flags.css">
+
+{#        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">#}
+{#        <link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">#}
+{#        <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/cerulean/bootstrap.min.css" rel="stylesheet">#}
+
+        <script type="text/javascript" src='/static/bootstrap/dist/js/bootstrap.min.js'></script>
+        <script type="text/javascript" src='/static/bootstrap/js/transition.js'></script>
+        <script type="text/javascript" src='/static/bootstrap/js/collapse.js'></script>
+
+        {# django-datatable-view #}
+        <link rel="stylesheet" type="text/css" href="/static/datatables_bootstrap/dataTables.bootstrap.css">
+        <script type="text/javascript" language="javascript" src="/static/datatables/jquery.dataTables.min.js"></script>
+{#        <script type="text/javascript" language="javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>#}
+
+        <script type="text/javascript" language="javascript" src="/static/datatables_bootstrap/dataTables.bootstrap.js"></script>
+        <script type="text/javascript" language="javascript" src="/static/datatables_bootstrap/jquery.dataTables.firstlastbuttons.js"></script>
+
+{#        <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>#}
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+<![endif]-->
+
+        <script type="text/javascript" src="/static/bootstrap-daterangepicker/moment.js"></script>
+        <script type="text/javascript" src="/static/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+
+        <script type="text/javascript" src="/static/jquery_chained/jquery.chained.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/static/select2/select2.css" />
+        <script src="/static/select2/select2.js"></script>
+
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+    {% endblock static %}
+
+        <style>
+            body {
+                background-color: #EEEEEE;
+            }
+            .ui-menu:after {
+                content: ".";
+                display: block;
+                clear: both;
+                visibility: hidden;
+                line-height: 0;
+                height: 0;
+            }
+            .ui-menu .ui-menu-item {
+                    display: inline-block;
+                    float: left;
+                    margin: 0;
+                    padding: 0;
+                    width: auto;
+                }
+            #log_out{
+                 float:right;
+            }
+            #log_in{
+                 float:right;
+            }
+            #user_name{
+                 float:right;
+            }
+            #lan_select{
+                float:right;
+            }
+            #style_select{
+                float:right;
+            }
+            #logo{
+                float:right;
+            }
+            .footer_jumbotron{
+                min-height:100px;
+            }
+        </style>
+<script type="text/javascript">
+    $(document).ready(function () {
+            $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+        });
+</script>
+
+{% block extra_head %}{% endblock %}
+
+
+</head>
+<body >
+
+
+{% block navbar %}
+    <!-- Fixed navbar -->
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+{#        <div class="navbar-header">#}
+{#          <a class="navbar-brand" href="http://www.mbginsurance.co.uk/" target="_blank"> MB&G </a>#}
+{#        </div>#}
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+               {% block navbar-brand %} <li><a class="navbar-brand" href="http://www.mbginsurance.co.uk/" target="_blank"> MB&G </a></li>{% endblock navbar-brand %}
+            {% if user.is_authenticated %}
+                <li><a href="/"> <span class="glyphicon glyphicon-home"></span> &nbsp{% trans "Home" %}</a></li>
+                <li class="dropdown"><a href="/policy/"  class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> &nbsp{% trans "Warranty" %}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/policy/"><span class="glyphicon glyphicon-search"></span> &nbsp{% trans "Find" %}</a></li>
+                        <li>
+                            {% if request.user.username == 'test3' %}
+                                <a href="/policy/create/used/">
+                            {% else %}
+                                <a href="/policy/create/">
+                            {% endif %}
+                            <span class="glyphicon glyphicon-plus"></span> &nbsp{% trans "New" %}</a>
+                        </li>
+                    </ul>
+                </li>
+                {% if request.user.is_superuser %}
+                <li><a href="/auth/"  class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp{% trans "User" %}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/auth/"><span class="glyphicon glyphicon-search"></span> &nbsp{% trans "Find" %}</a></li>
+                        <li><a href="/auth/create/"><span class="glyphicon glyphicon-plus"></span> &nbsp{% trans "New" %}</a></li>
+                    </ul>
+
+                </li>
+                <li><a href="/group/"  class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon glyphicon-tower"></span> &nbsp{% trans "Groups-Branches" %}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/group/"><span class="glyphicon glyphicon-search"></span> &nbsp{% trans "Find" %}</a></li>
+                        <li><a href="/group/create/"> <span class="glyphicon glyphicon-plus"></span> &nbsp{% trans "New" %}</a></li>
+                    </ul>
+                </li>
+                <li><a href="/pricing/select_groupbranch/"><span class="glyphicon glyphicon-gbp"></span> &nbsp{% trans "Pricing Setup" %}</a>
+
+                </li>
+
+{#                <li><a href="#">{% trans "Claims" %}</a></li>#}
+{#                <li><a href="#">{% trans "Invoices" %}</a></li>#}
+{#                <li><a href="#">{% trans "Reports" %}</a></li>#}
+{#                <li><a href="/admin/">{% trans "Admin" %}</a></li>#}
+                {% endif %}
+          {% endif %}
+
+                <!-- Language Bar start-->
+
+                <li id="lan_select" class="dropdown">
+
+                    <a id="drop4" role="button" data-toggle="dropdown" href="#">
+
+                        <img src="/static/flags/blank.gif" class="flag flag-{{LANGUAGE_CODE}}" alt="{{LANGUAGE_CODE}}" />
+
+                        <b class="caret"></b></a>
+                        <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+{#                        <form action="/setlang/" method="GET" id="lang_form"> {% csrf_token %}#}
+                        {% for lang in languages %}
+
+                        <li  role="presentation">
+                            <a class="lang_select" role="menuitem" tabindex="-1" lang_code="{{lang.0}}">
+                                <img src="/static/flags/blank.gif" class="flag flag-{{lang.0}}" alt="{{ lang.1 }}" />
+                                {{ lang.1 }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                        </ul>
+
+                </li>
+
+                <script>
+                    $('.lang_select').click(function() {
+                        $('<form action="/setlang/" method="GET" id="lang_form"></form>').appendTo('body')
+                        $('<input>').attr({
+                            type: 'hidden',
+                            name: 'language',
+                            value: $(this).attr("lang_code")
+                        }).appendTo('#lang_form');
+{#                        $({% csrf_token %}).appendTo('#lang_form')#}
+
+                        $('#lang_form').submit();
+                    });
+                </script>
+
+                <!-- Language Bar End-->
+
+          {% if user.is_authenticated %}
+              <ul class="nav navbar-nav navbar-right">
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <span class="glyphicon glyphicon-wrench"></span> &nbsp{% trans "My Profile" %}
+          <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+{#            <li class=""><a href="">Settings</a></li>#}
+            <li ><a href="/auth/logout/" >{% trans "Log Out" %}</a></li>
+          </ul>
+        </li>
+
+         </ul>
+
+          {% endif %}
+
+          </ul>
+
+                </div>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+{% endblock navbar %}
+{% block jumbotron %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h3></h3>
+        <p>
+        </p>
+      </div>
+    </div>
+{% endblock jumbotron %}
+
+<div class="container" style="margin-top: 70px;">
+{% block content %}
+
+
+{% endblock content %}
+</div><!-- /.container -->
+
+{% block footer %}
+    <div style="min-height: 100px">
+    </div>
+{% endblock footer %}
+</body>
+</html>
