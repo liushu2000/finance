@@ -18,10 +18,10 @@ def residual(real_return, intercept, gradient, market_return, date_posted, coman
 
 # excel = '/home/shu/Downloads/simple_value.xlsx'
 # excel = '/home/shu/Downloads/simple_result.xlsx'
-excel = '/home/shu/Downloads/uk_data.xlsx'
-excel2 = '/home/shu/Downloads/uk_data_result.xlsx'
+excel = '/home/shu/projects/django/finance/data/uk_data.xlsx'
+excel2 = '/home/shu/projects/django/finance/data/uk_data_result.xlsx'
 # excel_result ='/home/shu/Downloads/simple_regression_result.xlsx'
-excel_result ='/home/shu/Downloads/uk_regression_result.xlsx'
+excel_result ='/home/shu/projects/django/finance/data/uk_regression_result.xlsx'
 
 
 def date_to_month(input_date):
@@ -43,7 +43,7 @@ def company_monthly(request):
     monthly_book_value()
     monthly_sales()
     monthly_return()
-    template = 'finance/templates/done.html'
+    template = 'done.html'
 
     return render_to_response(template, context_instance=RequestContext(request))
 
@@ -193,8 +193,8 @@ def monthly_book_value():
     data = open_workbook(excel, on_demand=True)
     sheets_names = data.sheet_names()
     sheets_list = [i for i in sheets_names if 'book value' in i]
-    print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    print sheets_names
+    # print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    # print sheets_names
     for sheet_name in sheets_list:
         sheet = data.sheet_by_name(sheet_name)
 
@@ -220,9 +220,9 @@ def monthly_book_value():
                     company_monthly.month = this_month
                     company_monthly.book_value = value
                     company_monthly.save()
-                else:
-                    print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-                    print value
+                # else:
+                #     print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+                #     print value
 
 def monthly_sales():
     data = open_workbook(excel, on_demand=True)
@@ -272,8 +272,8 @@ def monthly_return():
 
                 value = sheet.cell(row, column).value
                 if idx > 5 and value and (type(value) in [float, int, long])and value_previous:
-                    print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-                    print idx
+                    # print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+                    # print idx
                     return_value = (value/value_previous) -1
 
 

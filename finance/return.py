@@ -9,8 +9,8 @@ import itertools
 # from numpy import arange,array,ones,linalg
 # from pylab import plot,show
 
-data = open_workbook('/home/shu/Downloads/uk_data.xlsx',)
-workbook = xlsxwriter.Workbook('/home/shu/Downloads/uk_data_result.xlsx')
+data = open_workbook('/home/shu/projects/django/finance/data/uk_data.xlsx',)
+workbook = xlsxwriter.Workbook('/home/shu/projects/django/finance/data/uk_data_result.xlsx')
 # data = open_workbook('/home/shu/Downloads/simple.xlsx', on_demand=True)
 # workbook = xlsxwriter.Workbook('/home/shu/Downloads/simple_result.xlsx')
 sheets_names = data.sheet_names()
