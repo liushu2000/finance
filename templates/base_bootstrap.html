@@ -1,7 +1,5 @@
 {% load i18n %}
 {% load static %}
-{% load selectable_tags %}
-{% include_jquery_libs %}
 
 
 {% get_available_languages as languages %}
@@ -131,7 +129,7 @@
 {#        </div>#}
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-               {% block navbar-brand %} <li><a class="navbar-brand" href="http://www.mbginsurance.co.uk/" target="_blank"> MB&G </a></li>{% endblock navbar-brand %}
+               {% block navbar-brand %} <li><a class="navbar-brand" href="" target="_blank"> Shu Finance </a></li>{% endblock navbar-brand %}
             {% if user.is_authenticated %}
                 <li><a href="/"> <span class="glyphicon glyphicon-home"></span> &nbsp{% trans "Home" %}</a></li>
                 <li class="dropdown"><a href="/policy/"  class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> &nbsp{% trans "Warranty" %}<b class="caret"></b></a>

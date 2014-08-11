@@ -1,9 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-Done!
-</body>
-</html>
+{% extends "base_bootstrap.html" %}
+
+{% block jumbotron %}{% endblock jumbotron %}
+{% block content %}
+
+{% if messages %}
+
+<div class="flash_message">
+{% for message in messages %}
+    <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+{#    <div class="alert alert-warning">#}
+
+        <p>{{ message }}</p>
+    </div>
+{% endfor %}
+
+
+</div>
+{% endif %}
+
+<div class="Welcome_message">
+
+{% block middle_logo %}{% endblock middle_logo%}
+{{ title }}
+</div>
+<div class="home_links">
+    <p>
+
+    {{ result }}
+    </p>
+
+      </form>
+
+</div>
+
+{% endblock %}

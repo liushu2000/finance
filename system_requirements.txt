@@ -1,3 +1,4 @@
 sudo apt-get install memcached
 sudo apt-get install gettext
 sudo apt-get install libapache2-mod-wsgi
+sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose

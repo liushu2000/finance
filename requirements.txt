@@ -19,8 +19,8 @@ pandas==0.14.1
 python-dateutil==2.2
 python-memcached==1.53
 pytz==2014.4
-rpy2==2.4.2
-scipy==0.14.0
+#rpy2==2.4.2
+scipy
 selenium==2.42.1
 six==1.7.3
 sqlparse==0.1.11
