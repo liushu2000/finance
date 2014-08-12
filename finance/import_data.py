@@ -14,11 +14,6 @@ import re
 from models import *
 from conf import settings
 
-def residual(real_return, intercept, gradient, market_return, date_posted, comany):
-    residual_result = real_return - intercept - gradient*market_return
-    this_month = date_to_month(date_posted)
-    result = [this_month, comany, residual_result, ]
-    return result
 
 # excel = '/home/shu/Downloads/simple_value.xlsx'
 # excel = '/home/shu/Downloads/simple_result.xlsx'
@@ -33,10 +28,12 @@ def import_data(request,):
     dialy_rf_rm_rf()
     dialy_price_returns()
 
-    monthly_market_value()
-    monthly_book_value()
-    monthly_sales()
-    monthly_return()
+
+
+    # monthly_market_value()
+    # monthly_book_value()
+    # monthly_sales()
+    # monthly_return()
 
     template = 'home.html'
 
@@ -92,6 +89,8 @@ def dialy_rf_rm_rf():
                 daily_rf.rf = value
                 daily_rf.country = settings.COUNTRY
                 daily_rf.save()
+                print str(daily_rf) + 'RF Saved.'
+
     sheets_list = [i for i in sheets_names if 'daily Rm-Rf' in i]
 
     for sheet_name in sheets_list:
@@ -101,7 +100,7 @@ def dialy_rf_rm_rf():
             this_date = date_to_date(sheet.cell(row, 0).value)
             value = sheet.cell(row, 1).value
 
-            if value and (type(value) in [float, int, long]):
+            if value and (type(value) in [float, int, long]) and value != 0 :
 
                 if DailyRF.objects.filter(date=this_date):
                     daily_rf = DailyRF.objects.get(date=this_date)
@@ -112,6 +111,7 @@ def dialy_rf_rm_rf():
                 daily_rf.rm_rf = value
                 daily_rf.country = settings.COUNTRY
                 daily_rf.save()
+                print str(daily_rf) + 'Rm-Rf Saved.'
 
 def dialy_price_returns():
     data = open_workbook(excel, on_demand=True)
@@ -155,12 +155,12 @@ def dialy_price_returns():
                         if previous_price != 0:
                             returns = company_daily.price / previous_price - 1
                             company_daily.returns = returns
-                            if DailyRF.objects.filter(date=this_date):
+                            if DailyRF.objects.filter(date=this_date).exclude(rf=None):
                                 rf = DailyRF.objects.get(date=this_date).rf
                                 company_daily.real_returns = returns - rf
 
                     company_daily.save()
-
+                    print 'CompanyDaily  %s Saved.' % str(company_daily)
 
 def monthly_market_value():
     data = open_workbook(excel, on_demand=True)
@@ -201,6 +201,8 @@ def monthly_market_value():
                     company_monthly.month = this_month
                     company_monthly.market_value = value
                     company_monthly.save()
+                    print 'CompanyDaily %s -- Market Value Saved.' % str(company_monthly)
+
 
 def monthly_book_value():
 
@@ -241,7 +243,7 @@ def monthly_book_value():
                     company_monthly.month = this_month
                     company_monthly.book_value = value
                     company_monthly.save()
-
+                    print 'CompanyDaily %s -- Book Value Saved.' % str(company_monthly)
 def monthly_sales():
     data = open_workbook(excel, on_demand=True)
     sheets_names = data.sheet_names()
@@ -280,7 +282,7 @@ def monthly_sales():
                     company_monthly.month = this_month
                     company_monthly.sales = value
                     company_monthly.save()
-
+                    print 'CompanyDaily %s -- Sales Saved.' % str(company_monthly)
 
 def monthly_return():
     data = open_workbook(excel, on_demand=True)
@@ -320,3 +322,4 @@ def monthly_return():
                     company_monthly.month = this_month
                     company_monthly.returns = value
                     company_monthly.save()
+                    print 'CompanyDaily %s -- Returns Saved.' % str(company_monthly)

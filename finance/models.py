@@ -59,4 +59,4 @@ class CompanyDaily(models.Model):
     real_returns = models.FloatField(blank=True, null=True,)
 
     def __unicode__(self):
-        return self.company + ' - '+ str(self.date)
+        return self.company.name + ' - '+ str(self.date)

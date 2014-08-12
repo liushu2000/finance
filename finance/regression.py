@@ -10,8 +10,6 @@ import numpy
 from django.db.models import Count
 import numpy as np
 import math
-from datetime import datetime
-
 
 
 def regression(request):
@@ -19,7 +17,7 @@ def regression(request):
 
     company_alpha_beta()
     monthly_std()
-
+    monthly_vp()
 
     template = 'home.html'
 
@@ -48,7 +46,7 @@ def company_alpha_beta():
             company.alpha = intercept
             company.beta = gradient
             company.save()
-
+            print 'Company %s -- Alpha Beta Saved.' % str(company)
 
 def monthly_std():
     for company in Company.objects.filter(country=settings.COUNTRY).exclude(alpha=None).exclude(beta=None):
@@ -78,10 +76,10 @@ def monthly_std():
             company_monthly.month = this_month
             company_monthly.std = monthly_std
             company_monthly.save()
-
+            print 'Company Monthly %s -- Standard Deviation Saved.' % str(company_monthly)
 
 cut = lambda lst, sz: [lst[i:i+sz] for i in range(0, len(lst), sz)]
-def monthly_vp(request, measure_type=None):
+def monthly_vp( measure_type=None):
     result = []
     measure_type = 'std'
     measure_type = 'returns'
@@ -112,9 +110,7 @@ def monthly_vp(request, measure_type=None):
         if not math.isnan(a_mean) and not math.isnan(b_mean):
             m_v_premium= a_mean/b_mean
             result.append(m_v_premium)
-            print "++++++++++++++++++++++++++++++++++++"
-            print str(type(m_v_premium))
-            print m_v_premium
+
             if MonthlyVP.objects.filter(month=this_month):
                 monthly_vp = MonthlyVP.objects.get(month=this_month)
             else:
@@ -123,8 +119,4 @@ def monthly_vp(request, measure_type=None):
             monthly_vp.month = this_month
             monthly_vp.country = settings.COUNTRY
             monthly_vp.save()
-    template = 'home.html'
-
-    return render_to_response(template,
-                              {"result": result,  },
-                              context_instance=RequestContext(request))
+            print 'Monthly Volatility Premium %s --  Saved.' % str(monthly_vp)
