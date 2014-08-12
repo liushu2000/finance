@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
-from formwizard import settings
+from conf import settings
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from models import *
 from django.forms.models import model_to_dict

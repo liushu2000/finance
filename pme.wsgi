@@ -14,7 +14,7 @@ activate_this = '/var/www/ui_datatable_form/pme_env/bin/activate_this.py'
 execfile(activate_this, dict(__file__=activate_this))
 
 # Set environmental variable for Django and fire WSGI handler
-os.environ['DJANGO_SETTINGS_MODULE'] = 'formwizard.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'conf.settings'
 import django.core.handlers.wsgi
 _application = django.core.handlers.wsgi.WSGIHandler()
 

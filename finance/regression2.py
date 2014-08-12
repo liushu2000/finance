@@ -5,10 +5,11 @@ from datetime import datetime, timedelta
 import numpy
 import itertools
 from itertools import groupby
-from models import CompanyMonthly
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 import re
+from models import *
+
 
 def residual(real_return, intercept, gradient, market_return, date_posted, comany):
     residual_result = real_return - intercept - gradient*market_return
@@ -38,14 +39,18 @@ def date_to_month(input_date):
 
 def company_monthly(request):
 
-    monthly_std()
-    monthly_market_value()
-    monthly_book_value()
-    monthly_sales()
-    monthly_return()
-    template = 'done.html'
+    # monthly_std()
+    # monthly_market_value()
+    # monthly_book_value()
+    # monthly_sales()
+    # monthly_return()
+    template = 'home.html'
 
     return render_to_response(template, context_instance=RequestContext(request))
+
+
+
+
 
 def monthly_std():
     data = open_workbook(excel2, on_demand=True)
@@ -163,144 +168,3 @@ def monthly_std():
     workbook.close()
 
 
-def monthly_market_value():
-    data = open_workbook(excel, on_demand=True)
-    sheets_names = data.sheet_names()
-    sheets_list = [i for i in sheets_names if 'market value' in i]
-
-    for sheet_name in sheets_list:
-        sheet = data.sheet_by_name(sheet_name)
-
-        for column in range(1, sheet.ncols):
-            company = sheet.cell(0, column).value
-            company = re.sub(" - MARKET VALUE", "", company,)
-            company_code = sheet.cell(1, column).value
-            company_code = (company_code.split("("))[0]
-
-            for idx, row in enumerate(range(2, sheet.nrows)):
-                this_month = date_to_month(sheet.cell(row, 0).value)
-
-                value = sheet.cell(row, column).value
-
-                if value and (type(value) in [float, int, long]):
-
-                    if CompanyMonthly.objects.filter(code=company_code, month=this_month):
-                        company_monthly = CompanyMonthly.objects.get(code=company_code, month=this_month)
-                    else:
-                        company_monthly = CompanyMonthly()
-
-                    company_monthly.company = company
-                    company_monthly.code = company_code
-                    company_monthly.month = this_month
-                    company_monthly.market_value = value
-                    print company_monthly
-                    company_monthly.save()
-
-def monthly_book_value():
-    data = open_workbook(excel, on_demand=True)
-    sheets_names = data.sheet_names()
-    sheets_list = [i for i in sheets_names if 'book value' in i]
-    # print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    # print sheets_names
-    for sheet_name in sheets_list:
-        sheet = data.sheet_by_name(sheet_name)
-
-        for column in range(1, sheet.ncols):
-            company = sheet.cell(0, column).value
-            company_code = sheet.cell(1, column).value
-            company = re.sub(" - BOOK VALUE-OUT SHARES-FISCAL", "", company,)
-            company_code = (company_code.split("("))[0]
-
-            for idx, row in enumerate(range(2, sheet.nrows)):
-                # date = datetime.strptime(sheet.cell(row, 0).value, '%d/%m/%Y').date()
-                # month = str(date.year) + '-'+ str(date.month)
-                # this_month = datetime.strptime(month, '%Y-%m')
-                this_month = date_to_month(sheet.cell(row, 0).value)
-                value = sheet.cell(row, column).value
-
-                if value and (type(value) in [float, int, long]):
-
-                    if CompanyMonthly.objects.filter(code=company_code, month=this_month):
-                        company_monthly = CompanyMonthly.objects.get(code=company_code, month=this_month)
-                    else:
-                        company_monthly = CompanyMonthly()
-
-                    company_monthly.company = company
-                    company_monthly.code = company_code
-                    company_monthly.month = this_month
-                    company_monthly.book_value = value
-                    company_monthly.save()
-                # else:
-                #     print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-                #     print value
-
-def monthly_sales():
-    data = open_workbook(excel, on_demand=True)
-    sheets_names = data.sheet_names()
-    sheets_list = [i for i in sheets_names if 'sale' in i]
-
-    for sheet_name in sheets_list:
-        sheet = data.sheet_by_name(sheet_name)
-
-        for column in range(1, sheet.ncols):
-            company = sheet.cell(0, column).value
-            company = re.sub(" - SALES PER SHARE", "", company,)
-            company_code = sheet.cell(1, column).value
-            company_code = (company_code.split("("))[0]
-
-            for idx, row in enumerate(range(2, sheet.nrows)):
-                this_month = date_to_month(sheet.cell(row, 0).value)
-
-                value = sheet.cell(row, column).value
-
-                if value and (type(value) in [float, int, long]):
-
-                    if CompanyMonthly.objects.filter(code=company_code, month=this_month):
-                        company_monthly = CompanyMonthly.objects.get(code=company_code, month=this_month)
-                    else:
-                        company_monthly = CompanyMonthly()
-
-                    company_monthly.company = company
-                    company_monthly.code = company_code
-                    company_monthly.month = this_month
-                    company_monthly.sales = value
-                    company_monthly.save()
-
-
-def monthly_return():
-    data = open_workbook(excel, on_demand=True)
-    sheets_names = data.sheet_names()
-    sheets_list = [i for i in sheets_names if 'price' in i]
-
-    for sheet_name in sheets_list:
-        sheet = data.sheet_by_name(sheet_name)
-
-        for column in range(1, sheet.ncols):
-            company = sheet.cell(0, column).value
-            company = re.sub(" - SALES PER SHARE", "", company,)
-            company_code = sheet.cell(1, column).value
-            company_code = (company_code.split("("))[0]
-
-            # value_previous = 1
-            for idx, row in enumerate(range(2, sheet.nrows)):
-                this_month = date_to_month(sheet.cell(row, 0).value)
-
-                value = sheet.cell(row, column).value
-                if idx > 5 and value and (type(value) in [float, int, long])and value_previous:
-                    # print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-                    # print idx
-                    return_value = (value/value_previous) -1
-
-
-                    if CompanyMonthly.objects.filter(code=company_code, month=this_month):
-                        company_monthly = CompanyMonthly.objects.get(code=company_code, month=this_month)
-                    else:
-                        company_monthly = CompanyMonthly()
-
-                    company_monthly.company = company
-                    company_monthly.code = company_code
-                    company_monthly.month = this_month
-                    company_monthly.returns = return_value
-                    company_monthly.save()
-                if value:
-                    value_previous = value

@@ -1,4 +1,4 @@
-django-crispy-formwizard
+django-finance
 ========================
 
-Django Datagrid using JqueryUI combined with Django-Formwizard
+Finance app for calculating market behavior finance
