@@ -51,3 +51,4 @@ pme_env
 settings_local.py
 pme_local.wsgi
 .bk
+.json

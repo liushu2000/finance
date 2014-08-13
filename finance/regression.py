@@ -76,7 +76,7 @@ def monthly_std():
             company_monthly.month = this_month
             company_monthly.std = monthly_std
             company_monthly.save()
-            print 'Company Monthly %s -- Standard Deviation Saved.' % str(company_monthly)
+            print 'Company Monthly %s -- Standard Deviation -- %s Saved.' % (str(company_monthly), str(this_month))
 
 cut = lambda lst, sz: [lst[i:i+sz] for i in range(0, len(lst), sz)]
 def monthly_vp( measure_type=None):
@@ -84,13 +84,15 @@ def monthly_vp( measure_type=None):
     measure_type = 'std'
     measure_type = 'returns'
 
-    all = CompanyMonthly.objects.all().values('month').annotate(company_count=Count('company')).order_by('month')
+    all = list(CompanyMonthly.objects.all().values('month').annotate(company_count=Count('company')).order_by('month'))
     all_months = [i['month'] for i in all]
+
     for idx, this_month in enumerate(all_months):
+
         monthly_companies = CompanyMonthly.objects.filter(month=this_month).order_by(measure_type)
         groups = cut(monthly_companies, 10)
-        top_groups = groups[:2]
 
+        top_groups = groups[:2]
         a= []
         for g in top_groups:
             for c in g:
@@ -105,8 +107,8 @@ def monthly_vp( measure_type=None):
             for c in g:
                 if c.market_value and c.book_value:
                     b.append(c.market_value / c.book_value)
-        b_mean = np.mean(b)
 
+        b_mean = np.mean(b)
         if not math.isnan(a_mean) and not math.isnan(b_mean):
             m_v_premium= a_mean/b_mean
             result.append(m_v_premium)

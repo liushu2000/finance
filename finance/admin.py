@@ -1,6 +1,6 @@
 from django.contrib import admin
 from models import *
-
+from export import *
 
 # class CountryAdmin(admin.ModelAdmin):
 #
@@ -42,8 +42,32 @@ admin.site.register(DailyRF, DailyRFAdmin)
 
 
 class MonthlyVPAdmin(admin.ModelAdmin):
-
-    list_display = ('month', 'vp', 'country', )
+    actions = [export_csv, export_xls, export_xlsx]
+    list_display = ('country', 'month', 'vp')
     list_filter = ('month',  'country')
     search_fields = ['vp', 'month', ]
 admin.site.register(MonthlyVP, MonthlyVPAdmin)
+
+
+class MonthlySentimentAdmin(admin.ModelAdmin):
+    #actions = [export_csv, export_xls, export_xlsx]
+    list_display = ('country', 'month', 'sentiment',  )
+    list_filter = ('country', 'month', )
+    search_fields = ['sentiment', 'month', ]
+admin.site.register(MonthlySentiment, MonthlySentimentAdmin)
+
+
+class MonthlyGroupsAdmin(admin.ModelAdmin):
+    #actions = [export_csv, export_xls, export_xlsx]
+    list_display = ('country', 'month', 'group_number',  'type', 'average_returns','lastmonth_sentiment' )
+    list_filter = ('country', 'type', 'lastmonth_sentiment', 'month', 'group_number', )
+    search_fields = ['month', ]
+admin.site.register(MonthlyGroups, MonthlyGroupsAdmin)
+
+
+class MonthlyGroupsResultAdmin(admin.ModelAdmin):
+    #actions = [export_csv, export_xls, export_xlsx]
+    list_display = ('country', 'type', 'group_number',  'result')
+    list_filter = ('country', 'type', 'group_number',)
+    search_fields = ['result', ]
+admin.site.register(MonthlyGroupsResult, MonthlyGroupsResultAdmin)

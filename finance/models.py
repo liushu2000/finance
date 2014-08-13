@@ -29,7 +29,7 @@ class CompanyMonthly(models.Model):
     returns = models.FloatField(blank=True, null=True, )
 
     def __unicode__(self):
-        return self.company
+        return str(self.company)
 
 
 class MonthlyVP(models.Model):
@@ -60,3 +60,44 @@ class CompanyDaily(models.Model):
 
     def __unicode__(self):
         return self.company.name + ' - '+ str(self.date)
+
+class MonthlySentiment(models.Model):
+    month = models.DateField()
+    sentiment = models.FloatField(blank=True, null=True, )
+    country = models.CharField(blank=True, null=True, max_length=256)
+
+    def __unicode__(self):
+        return str(self.month)
+
+
+class MonthlyGroups(models.Model):
+    month = models.DateField()
+    group_number = models.IntegerField()
+    type = models.CharField(max_length=128)
+    country = models.CharField(blank=True, null=True, max_length=256)
+    average_returns = models.FloatField(blank=True, null=True, )
+    lastmonth_sentiment = models.IntegerField(blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.month)
+
+
+class MonthlyGroups(models.Model):
+    month = models.DateField()
+    group_number = models.IntegerField()
+    type = models.CharField(max_length=128)
+    country = models.CharField(blank=True, null=True, max_length=256)
+    average_returns = models.FloatField(blank=True, null=True, )
+    lastmonth_sentiment = models.IntegerField(blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.month)
+
+class MonthlyGroupsResult(models.Model):
+    group_number = models.IntegerField()
+    type = models.CharField(max_length=128)
+    result = models.FloatField(blank=True, null=True, )
+    country = models.CharField(blank=True, null=True, max_length=256)
+
+    def __unicode__(self):
+        return str(self.group_number)

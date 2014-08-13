@@ -18,6 +18,7 @@ from conf import settings
 # excel = '/home/shu/Downloads/simple_value.xlsx'
 # excel = '/home/shu/Downloads/simple_result.xlsx'
 excel = '/home/shu/projects/django/finance/data/uk_data.xlsx'
+sentiment_excel = '/home/shu/projects/django/finance/data/sentiment.xlsx'
 # excel2 = '/home/shu/projects/django/finance/data/uk_data_result.xlsx'
 # excel_result ='/home/shu/Downloads/simple_regression_result.xlsx'
 # excel_result ='/home/shu/projects/django/finance/data/uk_regression_result.xlsx'
@@ -41,12 +42,13 @@ def import_data(request,):
                               {"result": result,  },
                               context_instance=RequestContext(request))
 def date_to_month(input_date):
-    print type(input_date)
+    # print str(type(input_date))
+    # print input_date
     if type(input_date) == float:
         seconds = (input_date - 25569) * 86400.0
         time = datetime.utcfromtimestamp(seconds)
         date = time.date()
-    elif type(input_date) == str :
+    elif type(input_date) == str:
         date = datetime.strptime(input_date, '%d/%m/%Y').date()
     else:
         date = input_date
@@ -186,6 +188,7 @@ def monthly_market_value():
                 company.save()
 
             for idx, row in enumerate(range(2, sheet.nrows)):
+
                 this_month = date_to_month(sheet.cell(row, 0).value)
 
                 value = sheet.cell(row, column).value
@@ -201,7 +204,7 @@ def monthly_market_value():
                     company_monthly.month = this_month
                     company_monthly.market_value = value
                     company_monthly.save()
-                    print 'CompanyDaily %s -- Market Value Saved.' % str(company_monthly)
+                    print 'CompanyMonthly %s -- Market Value Saved.' % str(company_monthly)
 
 
 def monthly_book_value():
@@ -243,7 +246,7 @@ def monthly_book_value():
                     company_monthly.month = this_month
                     company_monthly.book_value = value
                     company_monthly.save()
-                    print 'CompanyDaily %s -- Book Value Saved.' % str(company_monthly)
+                    print 'CompanyMonthly %s -- Book Value Saved.' % str(company_monthly)
 def monthly_sales():
     data = open_workbook(excel, on_demand=True)
     sheets_names = data.sheet_names()
@@ -282,7 +285,7 @@ def monthly_sales():
                     company_monthly.month = this_month
                     company_monthly.sales = value
                     company_monthly.save()
-                    print 'CompanyDaily %s -- Sales Saved.' % str(company_monthly)
+                    print 'CompanyMonthly %s -- Sales Saved.' % str(company_monthly)
 
 def monthly_return():
     data = open_workbook(excel, on_demand=True)
@@ -322,4 +325,30 @@ def monthly_return():
                     company_monthly.month = this_month
                     company_monthly.returns = value
                     company_monthly.save()
-                    print 'CompanyDaily %s -- Returns Saved.' % str(company_monthly)
+                    print 'CompanyMonthly %s -- Returns Saved.' % str(company_monthly)
+
+
+def monthly_sentiment():
+    data = open_workbook(sentiment_excel, on_demand=True)
+    sheets_names = data.sheet_names()
+    sheets_list = [i for i in sheets_names if 'uk' in i]
+
+    for sheet_name in sheets_list:
+        sheet = data.sheet_by_name(sheet_name)
+
+        for idx, row in enumerate(range(2, sheet.nrows)):
+            this_month = date_to_month(sheet.cell(row, 0).value)
+            value = sheet.cell(row, 1).value
+
+            if value and (type(value) in [float, int, long]):
+
+                if MonthlySentiment.objects.filter(month=this_month):
+                    m_sentiment = MonthlySentiment.objects.get(month=this_month)
+                else:
+                    m_sentiment = MonthlySentiment()
+
+                m_sentiment.month = this_month
+                m_sentiment.sentiment = value
+                m_sentiment.country = settings.COUNTRY
+                m_sentiment.save()
+                print 'MonthlySentiment  %s --  Saved.' % str(m_sentiment)
