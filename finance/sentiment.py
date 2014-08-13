@@ -18,7 +18,7 @@ cut = lambda lst, sz: [lst[i:i+sz] for i in range(0, len(lst), sz)]
 
 
 def generate_monthly_groups(input_types=None):
-    input_types = ['sales', 'std', 'market_value']
+    input_types = ['sales', 'std', 'market_value', 'book_market_value']
     # input_types = ['std']
     for input_type in input_types:
         for monthly_sentiment in MonthlySentiment.objects.filter(country=settings.COUNTRY).exclude(sentiment=None):
@@ -60,7 +60,7 @@ def generate_monthly_groups(input_types=None):
 
 
 def monthly_groups_companre(input_types=None):
-    input_types = ['sales', 'std', 'market_value']
+    input_types = ['sales', 'std', 'market_value', 'book_market_value']
     # input_types = ['std']
 
     for input_type in input_types:

@@ -247,6 +247,16 @@ def monthly_book_value():
                     company_monthly.book_value = value
                     company_monthly.save()
                     print 'CompanyMonthly %s -- Book Value Saved.' % str(company_monthly)
+
+
+def monthly_book_market_value():
+    for company_monthly in CompanyMonthly.objects.filter(company__country=settings.COUNTRY).exclude(book_value=None).exclude(market_value=None):
+
+        company_monthly.book_market_value = company_monthly.book_value / company_monthly.market_value
+        company_monthly.save()
+        print 'CompanyMonthly %s -- Book / Market Value %s Saved.' % (str(company_monthly), str(company_monthly.book_market_value))
+
+
 def monthly_sales():
     data = open_workbook(excel, on_demand=True)
     sheets_names = data.sheet_names()
@@ -287,10 +297,11 @@ def monthly_sales():
                     company_monthly.save()
                     print 'CompanyMonthly %s -- Sales Saved.' % str(company_monthly)
 
+
 def monthly_return():
     data = open_workbook(excel, on_demand=True)
     sheets_names = data.sheet_names()
-    sheets_list = [i for i in sheets_names if 'price' in i]
+    sheets_list = [i for i in sheets_names if 'monthly price' in i]
 
     for sheet_name in sheets_list:
         sheet = data.sheet_by_name(sheet_name)
@@ -313,9 +324,10 @@ def monthly_return():
             for idx, row in enumerate(range(2, sheet.nrows)):
                 this_month = date_to_month(sheet.cell(row, 0).value)
 
-                value = sheet.cell(row, column).value
-
-                if value and (type(value) in [float, int, long]):
+                price = sheet.cell(row, column).value
+                price_previous = sheet.cell(row-1, column).value
+                if price and price_previous and (type(price_previous) in [float, int, long]) and (type(price_previous) in [float, int, long]):
+                    returns = (price / price_previous) - 1
                     if CompanyMonthly.objects.filter(company=company, month=this_month):
                         company_monthly = CompanyMonthly.objects.get(company=company, month=this_month)
                     else:
@@ -323,9 +335,9 @@ def monthly_return():
 
                     company_monthly.company = company
                     company_monthly.month = this_month
-                    company_monthly.returns = value
+                    company_monthly.returns = returns
                     company_monthly.save()
-                    print 'CompanyMonthly %s -- Returns Saved.' % str(company_monthly)
+                    print 'CompanyMonthly %s -- Returns %s Saved.' % (str(company_monthly), str(returns))
 
 
 def monthly_sentiment():

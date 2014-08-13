@@ -19,9 +19,9 @@ admin.site.register(Company, CompanyAdmin)
 
 class CompanyMonthlyAdmin(admin.ModelAdmin):
 
-    list_display = ('month', 'company', 'std', 'market_value', 'book_value', 'sales', 'returns')
+    list_display = ('month', 'company', 'std', 'market_value', 'book_value', 'sales', 'returns', 'book_market_value')
     list_filter = ('month',  'company', )
-    search_fields = ['company',  'std', 'market_value', 'book_value', 'sales']
+    search_fields = ['company',  'std', 'market_value', 'book_value', 'sales','returns', 'book_market_value']
 admin.site.register(CompanyMonthly, CompanyMonthlyAdmin)
 
 

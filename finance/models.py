@@ -27,6 +27,7 @@ class CompanyMonthly(models.Model):
     book_value = models.FloatField(blank=True, null=True, )
     sales = models.FloatField(blank=True, null=True, )
     returns = models.FloatField(blank=True, null=True, )
+    book_market_value = models.FloatField(blank=True, null=True, )
 
     def __unicode__(self):
         return str(self.company)
@@ -65,18 +66,6 @@ class MonthlySentiment(models.Model):
     month = models.DateField()
     sentiment = models.FloatField(blank=True, null=True, )
     country = models.CharField(blank=True, null=True, max_length=256)
-
-    def __unicode__(self):
-        return str(self.month)
-
-
-class MonthlyGroups(models.Model):
-    month = models.DateField()
-    group_number = models.IntegerField()
-    type = models.CharField(max_length=128)
-    country = models.CharField(blank=True, null=True, max_length=256)
-    average_returns = models.FloatField(blank=True, null=True, )
-    lastmonth_sentiment = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
         return str(self.month)

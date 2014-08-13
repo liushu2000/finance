@@ -38,6 +38,8 @@ class Command(BaseCommand):
 
         # monthly_market_value()
         # monthly_book_value()
+        # monthly_book_market_value()
+
         # monthly_sales()
         # monthly_return()
 
@@ -45,7 +47,7 @@ class Command(BaseCommand):
         # monthly_std()
         # monthly_vp()
 
-        # monthly_sentiment()
+        monthly_sentiment()
         generate_monthly_groups()
         monthly_groups_companre()
 
