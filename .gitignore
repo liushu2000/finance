@@ -50,5 +50,7 @@ pme_env
 # Local settings file
 settings_local.py
 pme_local.wsgi
-.bk
+*.bk
 *.json
+*.xls
+*.xlsx
