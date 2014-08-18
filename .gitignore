@@ -52,5 +52,4 @@ settings_local.py
 pme_local.wsgi
 *.bk
 *.json
-*.xls
 *.xlsx
