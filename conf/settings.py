@@ -9,7 +9,7 @@ TEMPLATE_DEBUG = DEBUG
 
 # SITE = 'ag'
 SITE = 'mbg'
-COUNTRY = 'UK'
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = 'localhost:8082'
@@ -28,7 +28,7 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'finance',
+        'NAME': 'finance_us',
         'USER': 'root',
         'PASSWORD': 'aiwahc1F',
         'HOST': 'db-writer',

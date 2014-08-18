@@ -13,23 +13,26 @@ import numpy as np
 import math
 from django.db.models import Avg
 import datetime
-
-cut = lambda lst, sz: [lst[i:i+sz] for i in range(0, len(lst), sz)]
+from import_data import cut
 
 
 def generate_monthly_groups(input_types=None):
     input_types = ['sales', 'std', 'market_value', 'book_market_value']
-    # input_types = ['std']
+    # input_types = ['sales', ]
     for input_type in input_types:
         for monthly_sentiment in MonthlySentiment.objects.filter(country=settings.COUNTRY).exclude(sentiment=None):
             this_month = monthly_sentiment.month
+
+            #if this_month == datetime.datetime.strptime('1990-01-01', '%Y-%m-%d').date():
+
             first = datetime.date(day=1, month=this_month.month, year=this_month.year)
             last_month = first - datetime.timedelta(days=1)
             last_month = datetime.datetime.strptime(last_month.strftime("%Y%m"), "%Y%m")
 
             monthly_result_list = []
-            for cm in CompanyMonthly.objects.filter(month=this_month, company__country=settings.COUNTRY).exclude(returns=None).order_by(input_type):
+            for count, cm in enumerate( CompanyMonthly.objects.filter(month=this_month, company__country=settings.COUNTRY).exclude(returns=None).order_by(input_type) ):
                 monthly_result_list.append(cm)
+
             monthly_groups = cut(monthly_result_list, 10)
 
             if monthly_groups:
@@ -56,7 +59,7 @@ def generate_monthly_groups(input_types=None):
                     m_group.type = input_type
                     m_group.average_returns = group_avg
                     m_group.save()
-                    print 'Monthly Group %s of %s Average Returns based on -- %s -- Saved.' % (str(idx), str(m_group), input_type)
+                    print 'Monthly Group number:%s of %s Average Returns (based on %s) is: %s - Saved.' % (str(idx), str(m_group), input_type, group_avg)
 
 
 def monthly_groups_companre(input_types=None):

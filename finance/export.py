@@ -1,6 +1,6 @@
 __author__ = 'shu'
 from django.http import HttpResponse
-
+from conf import settings
 
 def export_csv(modeladmin, request, queryset):
     import csv
@@ -26,9 +26,9 @@ export_csv.short_description = u"Export CSV"
 def export_xls(modeladmin, request, queryset):
     import xlwt
     response = HttpResponse(mimetype='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=mymodel.xls'
+    response['Content-Disposition'] = 'attachment; filename=%s_vp.xls' % settings.COUNTRY
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet("MyModel")
+    ws = wb.add_sheet(settings.COUNTRY + "_vp")
 
     row_num = 0
 
@@ -71,7 +71,7 @@ def export_xlsx(modeladmin, request, queryset):
     response['Content-Disposition'] = 'attachment; filename=mymodel.xlsx'
     wb = openpyxl.Workbook()
     ws = wb.get_active_sheet()
-    ws.title = "MyModel"
+    ws.title = settings.COUNTRY + "_vp"
 
     row_num = 0
 
@@ -104,3 +104,93 @@ def export_xlsx(modeladmin, request, queryset):
     return response
 
 export_xlsx.short_description = u"Export XLSX"
+
+
+def monthly_groups_export_xls(modeladmin, request, queryset):
+    import xlwt
+    response = HttpResponse(mimetype='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=%s_monthly_groups.xls' % settings.COUNTRY
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet(settings.COUNTRY + "_monthly_groups")
+
+    row_num = 0
+
+    columns = [
+        (u"month", 276),
+        (u"Type", 276),
+        (u"Group Number", 276),
+        (u"Average Returns", 276),
+        (u"Country", 276),
+    ]
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    for col_num in xrange(len(columns)):
+        ws.write(row_num, col_num, columns[col_num][0], font_style)
+        # set column width
+        ws.col(col_num).width = columns[col_num][1]
+
+    font_style = xlwt.XFStyle()
+    font_style.alignment.wrap = 1
+
+    for obj in queryset:
+        row_num += 1
+        row = [
+            obj.month,
+            obj.type,
+            obj.group_number,
+            obj.average_returns,
+            obj.country,
+        ]
+        for col_num in xrange(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response
+
+export_xls.short_description = u"Export XLS"
+
+
+def monthly_groups_results_export_xls(modeladmin, request, queryset):
+    import xlwt
+    response = HttpResponse(mimetype='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=%s_monthly_groups_results.xls' % settings.COUNTRY
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet(settings.COUNTRY + "_monthly_groups_results")
+
+    row_num = 0
+
+    columns = [
+        (u"Type", 276),
+        (u"Group Number", 276),
+        (u"Results", 276),
+        (u"Country", 276),
+    ]
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    for col_num in xrange(len(columns)):
+        ws.write(row_num, col_num, columns[col_num][0], font_style)
+        # set column width
+        ws.col(col_num).width = columns[col_num][1]
+
+    font_style = xlwt.XFStyle()
+    font_style.alignment.wrap = 1
+
+    for obj in queryset:
+        row_num += 1
+        row = [
+            obj.type,
+            obj.group_number,
+            obj.result,
+            obj.country,
+        ]
+        for col_num in xrange(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response
+
+export_xls.short_description = u"Export XLS"

@@ -13,21 +13,27 @@ from django.template import RequestContext
 import re
 from models import *
 from conf import settings
-
+import time
 
 # excel = '/home/shu/Downloads/simple_value.xlsx'
 # excel = '/home/shu/Downloads/simple_result.xlsx'
-excel = '/home/shu/projects/django/finance/data/uk_data.xlsx'
-sentiment_excel = '/home/shu/projects/django/finance/data/sentiment.xlsx'
+# excel = '/home/shu/projects/django/finance/data/uk_data11.xlsx'
+excel = settings.EXCEL
+# sentiment_excel = '/home/shu/projects/django/finance/data/sentiment.xlsx'
 # excel2 = '/home/shu/projects/django/finance/data/uk_data_result.xlsx'
 # excel_result ='/home/shu/Downloads/simple_regression_result.xlsx'
 # excel_result ='/home/shu/projects/django/finance/data/uk_regression_result.xlsx'
 
+
+def cut(lst, n):
+    return [lst[i::n] for i in xrange(n)]
+
 def import_data(request,):
     result = []
 
-    dialy_rf_rm_rf()
-    dialy_price_returns()
+    # dialy_rf_rm_rf()
+    # dialy_price()
+    # daily_returns
 
 
 
@@ -41,6 +47,8 @@ def import_data(request,):
     return render_to_response(template,
                               {"result": result,  },
                               context_instance=RequestContext(request))
+
+
 def date_to_month(input_date):
     # print str(type(input_date))
     # print input_date
@@ -67,6 +75,7 @@ def date_to_date(input_date):
         date = datetime.strptime(input_date, '%d/%m/%Y').date()
 
     return date
+
 
 def dialy_rf_rm_rf():
     data = open_workbook(excel, on_demand=True)
@@ -115,6 +124,7 @@ def dialy_rf_rm_rf():
                 daily_rf.save()
                 print str(daily_rf) + 'Rm-Rf Saved.'
 
+
 def dialy_price_returns():
     data = open_workbook(excel, on_demand=True)
     sheets_names = data.sheet_names()
@@ -124,13 +134,50 @@ def dialy_price_returns():
         sheet = data.sheet_by_name(sheet_name)
 
         for column in range(1, sheet.ncols):
-
+        # for column in range(1, 25):
+        # for column in range(25, 50):
+        # for column in range(50, 75):
+        # for column in range(75, 100):
+        # for column in range(100, 125):
+        # for column in range(125, 150):
+        # for column in range(150, 175):
+        # for column in range(175, 200):
+        # for column in range(200,  sheet.ncols):
+        # for column in range(225, 250):
+        # for column in range(250, 275):
+        # for column in range(275, 300):
+        # for column in range(300, 400):
+        # for column in range(325, 350):
+        # for column in range(350, 375):
+        # for column in range(375, 400):
+        # for column in range(400, 425):
+        # for column in range(425, 450):
+        # for column in range(450, 475):
+        # for column in range(475, sheet.ncols):
+        # for column in range(1, sheet.ncols):
+            time_start = time.time()
+            broken = 0
             company_name = sheet.cell(0, column).value
             company_name = re.sub(" - MARKET VALUE", "", company_name,)
             company_code = sheet.cell(1, column).value
             company_code = (company_code.split("("))[0]
-            if Company.objects.filter(code=company_code):
-                company = Company.objects.get(code=company_code)
+            if Company.objects.filter(code=company_code, country=settings.COUNTRY):
+                company = Company.objects.get(code=company_code, country=settings.COUNTRY)
+                if CompanyDaily.objects.filter(company=company, date=datetime.strptime('2012-12-31', '%Y-%m-%d')):
+                    continue
+                if CompanyDaily.objects.filter(company=company,):
+                    last_break_point = CompanyDaily.objects.filter(company=company,).order_by('date').exclude(price=None)[0]
+                    last_break_date = last_break_point.date
+                    last_break_value = last_break_point.price
+                    broken = 1
+                    # print last_break_date
+                    # print '====================================='
+                    # break
+                    # print CompanyDaily.objects.filter(company=company,).order_by('-date')[0].company
+                    # print last_break_date
+
+
+
             else:
                 company = Company()
                 company.code = company_code
@@ -138,13 +185,22 @@ def dialy_price_returns():
                 company.country = settings.COUNTRY
                 company.save()
 
+            l = []
             for idx, row in enumerate(range(2, sheet.nrows)):
                 this_date = date_to_date(sheet.cell(row, 0).value)
                 value = sheet.cell(row, column).value
-
                 if value and (type(value) in [float, int, long]):
+                    l.append([this_date, value])
 
+            if l:
+                # print l
+                # if the import stopped in the middle of complet 1 company, resume
+                if broken == 1:
+                    l = filter(lambda x: x[0] > last_break_date, l)
+
+                for this_date, value in l:
                     if CompanyDaily.objects.filter(company=company, date=this_date):
+                        # continue
                         company_daily = CompanyDaily.objects.get(company=company, date=this_date)
                     else:
                         company_daily = CompanyDaily()
@@ -153,6 +209,10 @@ def dialy_price_returns():
                     company_daily.date = this_date
                     company_daily.price = value
                     if CompanyDaily.objects.filter(company=company, date=(this_date - timedelta(1))):
+                        previous_prices = CompanyDaily.objects.filter(company=company, date=(this_date - timedelta(1)))
+                        if len(previous_prices) > 1:
+                            for p in previous_prices[1:]:
+                                p.delete()
                         previous_price = CompanyDaily.objects.get(company=company, date=(this_date - timedelta(1))).price
                         if previous_price != 0:
                             returns = company_daily.price / previous_price - 1
@@ -162,7 +222,20 @@ def dialy_price_returns():
                                 company_daily.real_returns = returns - rf
 
                     company_daily.save()
-                    print 'CompanyDaily  %s Saved.' % str(company_daily)
+                    time_spend = time.time() - time_start
+                    print 'CompanyDaily %s -- price: %s Saved. (%s)' % (str(company_daily), str(value),  time_spend)
+            print 'Company %s -- price --returns-- Saved.' % str(company_name)
+
+
+def clean_daily_duplicate():
+    unique_fields = ['date', 'company']
+    duplicates = (CompanyDaily.objects.values(*unique_fields).order_by().annotate(max_id=models.Max('id'),
+                                                count_id=models.Count('id')).filter(count_id__gt=1))
+
+    for duplicate in duplicates:
+        CompanyDaily.objects.filter(**{x: duplicate[x] for x in unique_fields}).exclude(id=duplicate['max_id']).delete()
+        print 'Duplicate CompanyDaily deleted.'
+
 
 def monthly_market_value():
     data = open_workbook(excel, on_demand=True)
@@ -178,8 +251,8 @@ def monthly_market_value():
             company_name = re.sub(" - MARKET VALUE", "", company_name,)
             company_code = sheet.cell(1, column).value
             company_code = (company_code.split("("))[0]
-            if Company.objects.filter(code=company_code):
-                company = Company.objects.get(code=company_code)
+            if Company.objects.filter(code=company_code, country=settings.COUNTRY):
+                company = Company.objects.get(code=company_code, country=settings.COUNTRY)
             else:
                 company = Company()
                 company.code = company_code
@@ -204,7 +277,7 @@ def monthly_market_value():
                     company_monthly.month = this_month
                     company_monthly.market_value = value
                     company_monthly.save()
-                    print 'CompanyMonthly %s -- Market Value Saved.' % str(company_monthly)
+                    print 'CompanyMonthly %s -- Market Value %s Saved.' % (str(company_monthly), str(value))
 
 
 def monthly_book_value():
@@ -222,8 +295,8 @@ def monthly_book_value():
             company_name = re.sub(" - BOOK VALUE-OUT SHARES-FISCAL", "", company_name,)
             company_code = sheet.cell(1, column).value
             company_code = (company_code.split("("))[0]
-            if Company.objects.filter(code=company_code):
-                company = Company.objects.get(code=company_code)
+            if Company.objects.filter(code=company_code, country=settings.COUNTRY):
+                company = Company.objects.get(code=company_code, country=settings.COUNTRY)
             else:
                 company = Company()
                 company.code = company_code
@@ -236,7 +309,7 @@ def monthly_book_value():
 
                 value = sheet.cell(row, column).value
                 
-                if value and (type(value) in [float, int, long]):
+                if value and value and (type(value) in [float, int, long]):
                     if CompanyMonthly.objects.filter(company=company, month=this_month):
                         company_monthly = CompanyMonthly.objects.get(company=company, month=this_month)
                     else:
@@ -246,7 +319,7 @@ def monthly_book_value():
                     company_monthly.month = this_month
                     company_monthly.book_value = value
                     company_monthly.save()
-                    print 'CompanyMonthly %s -- Book Value Saved.' % str(company_monthly)
+                    print 'CompanyMonthly %s -- Book Value %s Saved.' % (str(company_monthly), str(value))
 
 
 def monthly_book_market_value():
@@ -271,8 +344,8 @@ def monthly_sales():
             company_name = re.sub(" - SALES PER SHARE", "", company_name,)
             company_code = sheet.cell(1, column).value
             company_code = (company_code.split("("))[0]
-            if Company.objects.filter(code=company_code):
-                company = Company.objects.get(code=company_code)
+            if Company.objects.filter(code=company_code, country=settings.COUNTRY):
+                company = Company.objects.get(code=company_code, country=settings.COUNTRY)
             else:
                 company = Company()
                 company.code = company_code
@@ -295,13 +368,13 @@ def monthly_sales():
                     company_monthly.month = this_month
                     company_monthly.sales = value
                     company_monthly.save()
-                    print 'CompanyMonthly %s -- Sales Saved.' % str(company_monthly)
+                    print 'CompanyMonthly %s -- Sales %s Saved.' % (str(company_monthly), str(value))
 
 
 def monthly_return():
     data = open_workbook(excel, on_demand=True)
     sheets_names = data.sheet_names()
-    sheets_list = [i for i in sheets_names if 'monthly price' in i]
+    sheets_list = [i for i in sheets_names if 'monthly price' == i]
 
     for sheet_name in sheets_list:
         sheet = data.sheet_by_name(sheet_name)
@@ -312,8 +385,8 @@ def monthly_return():
             company_name = re.sub(" - SALES PER SHARE", "", company_name,)
             company_code = sheet.cell(1, column).value
             company_code = (company_code.split("("))[0]
-            if Company.objects.filter(code=company_code):
-                company = Company.objects.get(code=company_code)
+            if Company.objects.filter(code=company_code, country=settings.COUNTRY):
+                company = Company.objects.get(code=company_code, country=settings.COUNTRY)
             else:
                 company = Company()
                 company.code = company_code
@@ -341,21 +414,21 @@ def monthly_return():
 
 
 def monthly_sentiment():
-    data = open_workbook(sentiment_excel, on_demand=True)
+    data = open_workbook(settings.SENTIMENT_EXCEL, on_demand=True)
     sheets_names = data.sheet_names()
-    sheets_list = [i for i in sheets_names if 'uk' in i]
+    sheets_list = [i for i in sheets_names if settings.COUNTRY in i]
 
     for sheet_name in sheets_list:
         sheet = data.sheet_by_name(sheet_name)
 
-        for idx, row in enumerate(range(2, sheet.nrows)):
+        for idx, row in enumerate(range(1, sheet.nrows)):
             this_month = date_to_month(sheet.cell(row, 0).value)
             value = sheet.cell(row, 1).value
 
             if value and (type(value) in [float, int, long]):
 
-                if MonthlySentiment.objects.filter(month=this_month):
-                    m_sentiment = MonthlySentiment.objects.get(month=this_month)
+                if MonthlySentiment.objects.filter(month=this_month, country=settings.COUNTRY):
+                    m_sentiment = MonthlySentiment.objects.get(month=this_month, country=settings.COUNTRY)
                 else:
                     m_sentiment = MonthlySentiment()
 

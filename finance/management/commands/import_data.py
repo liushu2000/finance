@@ -33,13 +33,15 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+
         # dialy_rf_rm_rf()
         # dialy_price_returns()
+        # clean_daily_duplicate()
 
         # monthly_market_value()
         # monthly_book_value()
         # monthly_book_market_value()
-
+        #
         # monthly_sales()
         # monthly_return()
 
@@ -48,6 +50,7 @@ class Command(BaseCommand):
         # monthly_vp()
 
         monthly_sentiment()
+
         generate_monthly_groups()
         monthly_groups_companre()
 

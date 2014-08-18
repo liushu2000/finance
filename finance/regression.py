@@ -10,7 +10,8 @@ import numpy
 from django.db.models import Count
 import numpy as np
 import math
-
+from datetime import datetime, timedelta, date
+from import_data import cut
 
 def regression(request):
     result = []
@@ -46,7 +47,7 @@ def company_alpha_beta():
             company.alpha = intercept
             company.beta = gradient
             company.save()
-            print 'Company %s -- Alpha Beta Saved.' % str(company)
+            print 'Company %s -- Alpha: %s  Beta: %s Saved.' % (str(company), str(intercept), str(gradient))
 
 def monthly_std():
     for company in Company.objects.filter(country=settings.COUNTRY).exclude(alpha=None).exclude(beta=None):
@@ -78,47 +79,51 @@ def monthly_std():
             company_monthly.save()
             print 'Company Monthly %s -- Standard Deviation -- %s Saved.' % (str(company_monthly), str(this_month))
 
-cut = lambda lst, sz: [lst[i:i+sz] for i in range(0, len(lst), sz)]
+
 def monthly_vp( measure_type=None):
     result = []
     measure_type = 'std'
-    measure_type = 'returns'
-
-    all = list(CompanyMonthly.objects.all().values('month').annotate(company_count=Count('company')).order_by('month'))
+    #input_date ='01/08/2008'
+    all = list(CompanyMonthly.objects.filter(company__country=settings.COUNTRY).values('month').annotate(company_count=Count('company')).order_by('month'))
     all_months = [i['month'] for i in all]
+    #print all_months
 
     for idx, this_month in enumerate(all_months):
+        #if this_month == datetime.strptime(input_date, '%d/%m/%Y').date():
 
-        monthly_companies = CompanyMonthly.objects.filter(month=this_month).order_by(measure_type)
-        groups = cut(monthly_companies, 10)
+            monthly_companies = CompanyMonthly.objects.filter(month=this_month).exclude(market_value=None).exclude(book_value=None).order_by(measure_type)
+            groups = cut(monthly_companies, 10)
 
-        top_groups = groups[:2]
-        a= []
-        for g in top_groups:
-            for c in g:
-                if c.market_value and c.book_value:
-                    a.append(c.market_value / c.book_value)
+            top_groups = groups[:2]
+            a = []
+            for g in top_groups:
+                for c in g:
+                    if c.market_value and c.book_value:
+                        a.append(c.market_value / c.book_value)
+            # average, can be improved to use weighted average in the future development
+            print a
+            a_mean = np.mean(a)
+            print a_mean
+            buttom_groups = groups[-3:]
+            b= []
+            for g in buttom_groups:
+                for c in g:
+                    if c.market_value and c.book_value:
+                        b.append(c.market_value / c.book_value)
 
-        a_mean = np.mean(a)
+            b_mean = np.mean(b)
+            print b_mean
+            # if  math.isnan(a_mean) and  math.isnan(b_mean):
+            if not math.isnan(a_mean) and not math.isnan(b_mean):
+                m_v_premium = a_mean/b_mean
+                result.append(m_v_premium)
 
-        buttom_groups = groups[-3:]
-        b= []
-        for g in buttom_groups:
-            for c in g:
-                if c.market_value and c.book_value:
-                    b.append(c.market_value / c.book_value)
-
-        b_mean = np.mean(b)
-        if not math.isnan(a_mean) and not math.isnan(b_mean):
-            m_v_premium= a_mean/b_mean
-            result.append(m_v_premium)
-
-            if MonthlyVP.objects.filter(month=this_month):
-                monthly_vp = MonthlyVP.objects.get(month=this_month)
-            else:
-                monthly_vp = MonthlyVP()
-            monthly_vp.vp = m_v_premium
-            monthly_vp.month = this_month
-            monthly_vp.country = settings.COUNTRY
-            monthly_vp.save()
-            print 'Monthly Volatility Premium %s --  Saved.' % str(monthly_vp)
+                if MonthlyVP.objects.filter(month=this_month):
+                    monthly_vp = MonthlyVP.objects.get(month=this_month)
+                else:
+                    monthly_vp = MonthlyVP()
+                monthly_vp.vp = m_v_premium
+                monthly_vp.month = this_month
+                monthly_vp.country = settings.COUNTRY
+                monthly_vp.save()
+                print 'Monthly Volatility Premium %s -- %s Saved.' % (str(monthly_vp) , str(m_v_premium))

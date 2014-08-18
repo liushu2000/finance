@@ -21,7 +21,7 @@ class CompanyMonthlyAdmin(admin.ModelAdmin):
 
     list_display = ('month', 'company', 'std', 'market_value', 'book_value', 'sales', 'returns', 'book_market_value')
     list_filter = ('month',  'company', )
-    search_fields = ['company',  'std', 'market_value', 'book_value', 'sales','returns', 'book_market_value']
+    search_fields = ['month', 'std', 'market_value', 'book_value', 'sales','returns', 'book_market_value']
 admin.site.register(CompanyMonthly, CompanyMonthlyAdmin)
 
 
@@ -58,7 +58,7 @@ admin.site.register(MonthlySentiment, MonthlySentimentAdmin)
 
 
 class MonthlyGroupsAdmin(admin.ModelAdmin):
-    #actions = [export_csv, export_xls, export_xlsx]
+    actions = [ monthly_groups_export_xls,]
     list_display = ('country', 'month', 'group_number',  'type', 'average_returns','lastmonth_sentiment' )
     list_filter = ('country', 'type', 'lastmonth_sentiment', 'month', 'group_number', )
     search_fields = ['month', ]
@@ -66,6 +66,7 @@ admin.site.register(MonthlyGroups, MonthlyGroupsAdmin)
 
 
 class MonthlyGroupsResultAdmin(admin.ModelAdmin):
+    actions = [ monthly_groups_results_export_xls,]
     #actions = [export_csv, export_xls, export_xlsx]
     list_display = ('country', 'type', 'group_number',  'result')
     list_filter = ('country', 'type', 'group_number',)
