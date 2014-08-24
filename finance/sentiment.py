@@ -30,7 +30,7 @@ def generate_monthly_groups(input_types=None):
             last_month = datetime.datetime.strptime(last_month.strftime("%Y%m"), "%Y%m")
 
             monthly_result_list = []
-            for count, cm in enumerate( CompanyMonthly.objects.filter(month=this_month, company__country=settings.COUNTRY).exclude(returns=None).order_by(input_type) ):
+            for count, cm in enumerate(CompanyMonthly.objects.filter(month=this_month, company__country=settings.COUNTRY).exclude(returns=None).order_by(input_type)):
                 monthly_result_list.append(cm)
 
             monthly_groups = cut(monthly_result_list, 10)
